@@ -5,5 +5,8 @@
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jasmine": "~0.5.2"
+  },
+  "scripts" : {
+    "test" : "grunt test"
   }
 }
