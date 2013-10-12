@@ -6,6 +6,10 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jasmine": "~0.5.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brett-shwom/backbone-business.git"
+  },
   "scripts" : {
     "test" : "grunt test"
   }
