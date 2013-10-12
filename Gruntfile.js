@@ -7,9 +7,10 @@ module.exports = function(grunt) {
           specs: 'test/spec/*Spec.js',
           helpers: 'test/spec/*Helper.js',
           vendor:[
-            'lib/jquery.js',
-            'lib/underscore.js',
-            'lib/backbone.js',
+            'lib/jquery/jquery.js',
+            'lib/underscore/underscore.js',
+            'lib/backbone/backbone.js',
+            'lib/backbone-business.js'
           ]
         }
       }
