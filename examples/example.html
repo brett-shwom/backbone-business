@@ -1,6 +1,57 @@
 <script type="text/javascript" src='../lib/jquery/jquery.js'></script>
 <script type="text/javascript" src='../lib/underscore/underscore.js'></script>
 <script type="text/javascript" src='../lib/backbone/backbone.js'></script>
-<script type="text/javascript" src='../lib/marionette/marionette.js'></script>
+<script type="text/javascript" src='../lib/marionette/lib/backbone.marionette.js'></script>
 <script type="text/javascript" src='../backbone-business-rule-processor.js'></script>
 <script type="text/javascript" src='../backbone-business.js'></script>
+<body>
+<div id='app'></div>
+<script>
+
+facts = {
+  isLoggedIn : false
+};
+
+rules = {
+  viewVisibility : {
+    'VWithBuisness' : 'facts.isLoggedIn'
+  }
+}
+
+M =  Backbone.Model.extend({});
+m = new M;
+
+V =  Backbone.Marionette.ItemView.extend({
+  template : '#header-view-template'
+});
+
+VWithBuisness = V.extend(Backbone.Business({viewClass : V, businessRules : rules, facts : facts}));
+
+L = Backbone.Marionette.Layout.extend({
+  template : '#app-layout-template',
+  regions : {
+    'header' : '.appHeader'
+  },
+  el : $('#app')
+});
+
+
+$().ready(function () {
+  l = new L;
+  l.render();
+  l.header.show(new VWithBuisness);
+
+});
+
+
+
+</script>
+
+<script type='text/template' id='app-layout-template'>
+ <header class='appHeader'></header>
+</script>
+
+<script type='text/template' id='header-view-template'>
+ <h1>This is the header view</h1>
+</script>
+</body>

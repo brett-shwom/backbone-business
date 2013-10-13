@@ -3,7 +3,10 @@
 
   var _businessRules;
 
-  var evaluateViewVisibility = function(view) {
+  var evaluateViewVisibility = function(options) {
+
+    var view = options.view;
+    var facts = options.facts;
 
     var   ViewClassName
         , ViewClass
@@ -36,7 +39,7 @@
       return _businessRules.viewVisibility._default;
     }
     else {
-      return Backbone.BusinessRuleProcessor.processRule({rule:rule});
+      return Backbone.BusinessRuleProcessor.processRule({rule:rule, facts : facts});
     }
 
     
@@ -48,12 +51,13 @@
 
     var ViewClass = options.viewClass;
     var businessRules = options.businessRules;
+    var facts = options.facts; //TODO: im not sure that facts should be passed in here. need to make sure that they can change, be added to etc.
 
     _businessRules = businessRules;
 
     return {
       render : function () {
-        if (evaluateViewVisibility(this)) {
+        if (evaluateViewVisibility({view : this,facts : facts})) {
           return ViewClass.prototype.render.apply(this, arguments);
         }
       },
