@@ -62,9 +62,12 @@
         if (!facts || !(facts instanceof Backbone.Model)) {
           throw 'facts must be a backbone model';
         }
+        //this.listenTo(facts,'change', function(){console.error('change')});
 
-        this.listenTo(facts,'change', this.render); //rerender when the facts model changes
+
+        this.listenTo(facts,'change', (function() { return this.render.apply(this, arguments)}).bind(this) ); //rerender when the facts model changes
                                                     //TODO: totally needs to be optimized, but not so bad for now
+                                                    //wrapped in a function to make it easier to spyOn this.render
         ViewClass.prototype.constructor.apply(this, arguments);
       },
       render : function () {
