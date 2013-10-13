@@ -5,7 +5,12 @@
 
   Backbone.BusinessRuleProcessor._evaluateRuleString = function(options) {
 
-    var facts = options.facts;
+    if (!options.facts || !(options.facts instanceof Backbone.Model)) {
+      throw 'facts must be a backbone model';
+    }
+
+
+    var facts = options.facts.attributes;
     var ruleString = options.ruleString;
 
     //TODO: could be made more robust

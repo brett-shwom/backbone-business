@@ -3,6 +3,7 @@ describe('a rule', function () {
 
   var   rule
       , facts
+      , Facts
   ;
 
   describe('that is an object', function () {
@@ -67,7 +68,8 @@ describe('a rule', function () {
 
       beforeEach(function () {
         rule = "facts.fact1";
-        facts = {fact1:true};
+        Facts = Backbone.Model.extend({});
+        facts = new Facts({fact1:true});
       });
 
       it('will return true', function() {
@@ -82,7 +84,8 @@ describe('a rule', function () {
 
       beforeEach(function () {
         rule = "facts.fact1";
-        facts = {fact1:false};
+        Facts = Backbone.Model.extend({});
+        facts = new Facts({fact1:false});
       });
 
       it('will return false', function() {
@@ -133,4 +136,35 @@ describe('a rule', function () {
   });
 
 
+});
+
+describe('facts', function () {
+  describe('when defined as an object', function () {
+
+    beforeEach(function(){
+      facts = {fact1: true};
+    });
+
+    it('should throw an exception when passed to Backbone.BusinessRuleProcessor._evaluateRuleString', function () {
+      spyOn(Backbone.BusinessRuleProcessor,'_evaluateRuleString').andCallThrough();
+
+      expect(function() {Backbone.BusinessRuleProcessor._evaluateRuleString({ruleString : '', facts : facts});}).toThrow('facts must be a backbone model');
+
+    });
+  });
+
+  describe('when defined as a Backbone.Model instance', function () {
+
+    beforeEach(function(){
+      Facts = Backbone.Model.extend({});
+      facts = new Facts({fact1: true});
+    });
+
+    it('should not throw an exception when passed to Backbone.BusinessRuleProcessor._evaluateRuleString', function () {
+      spyOn(Backbone.BusinessRuleProcessor,'_evaluateRuleString').andCallThrough();
+
+      expect(function() {Backbone.BusinessRuleProcessor._evaluateRuleString({ruleString : '', facts : facts});}).not.toThrow();
+
+    });
+  });
 });

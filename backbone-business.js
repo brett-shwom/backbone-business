@@ -56,6 +56,17 @@
     _businessRules = businessRules;
 
     return {
+      //TODO: constructor vs. initialize?
+      constructor : function () {
+
+        if (!facts || !(facts instanceof Backbone.Model)) {
+          throw 'facts must be a backbone model';
+        }
+
+        this.listenTo(facts,'change', this.render); //rerender when the facts model changes
+                                                    //TODO: totally needs to be optimized, but not so bad for now
+        ViewClass.prototype.constructor.apply(this, arguments);
+      },
       render : function () {
         if (evaluateViewVisibility({view : this,facts : facts})) {
           return ViewClass.prototype.render.apply(this, arguments);

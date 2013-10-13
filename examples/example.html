@@ -8,38 +8,46 @@
 <div id='app'></div>
 <script>
 
-facts = {
-  isLoggedIn : false
-};
+Facts = Backbone.Model.extend({});
+facts = new Backbone.Model({
+  isLoggedIn : true
+});
 
 rules = {
   viewVisibility : {
-    'VWithBuisness' : 'facts.isLoggedIn'
+    'LoggedInHeaderWithBuisness' : 'facts.isLoggedIn',
+    'NotLoggedInHeaderWithBuisness' : '!facts.isLoggedIn'
   }
 }
 
 M =  Backbone.Model.extend({});
 m = new M;
 
-V =  Backbone.Marionette.ItemView.extend({
-  template : '#header-view-template'
+LoggedInHeader =  Backbone.Marionette.ItemView.extend({
+  template : '#logged-in-header-view-template'
 });
 
-VWithBuisness = V.extend(Backbone.Business({viewClass : V, businessRules : rules, facts : facts}));
-
-L = Backbone.Marionette.Layout.extend({
-  template : '#app-layout-template',
-  regions : {
-    'header' : '.appHeader'
-  },
-  el : $('#app')
+NotLoggedInHeader =  Backbone.Marionette.ItemView.extend({
+  template : '#not-logged-in-header-view-template'
 });
 
+LoggedInHeaderWithBuisness = LoggedInHeader.extend(Backbone.Business({viewClass : LoggedInHeader, businessRules : rules, facts : facts})); //TODO: facts should somehow be more global in scope - i dont think i should necessarily have to pass a facts object every time I create a view
+
+NotLoggedInHeaderWithBuisness = NotLoggedInHeader.extend(Backbone.Business({viewClass : NotLoggedInHeader, businessRules : rules, facts : facts}));
 
 $().ready(function () {
+  L = Backbone.Marionette.Layout.extend({
+    template : '#app-layout-template',
+    regions : {
+      'loggedInHeader' : '.appHeaderLoggedIn',
+      'notLoggedInHeader' : '.appHeaderNotLoggedIn'
+    },
+    el : $('#app')
+  });
   l = new L;
   l.render();
-  l.header.show(new VWithBuisness);
+  l.loggedInHeader.show(new LoggedInHeaderWithBuisness);
+  l.notLoggedInHeader.show(new NotLoggedInHeaderWithBuisness);
 
 });
 
@@ -48,10 +56,14 @@ $().ready(function () {
 </script>
 
 <script type='text/template' id='app-layout-template'>
- <header class='appHeader'></header>
+ <header class='appHeaderLoggedIn'></header>
+ <header class='appHeaderNotLoggedIn'></header>
 </script>
 
-<script type='text/template' id='header-view-template'>
- <h1>This is the header view</h1>
+<script type='text/template' id='not-logged-in-header-view-template'>
+ <h1>Not Logged In</h1>
+</script>
+<script type='text/template' id='logged-in-header-view-template'>
+ <h1>Logged In</h1>
 </script>
 </body>
