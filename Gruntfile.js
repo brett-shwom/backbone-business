@@ -12,8 +12,7 @@ module.exports = function(grunt) {
           vendor:[
             'lib/jquery/jquery.js',
             'lib/underscore/underscore.js',
-            'lib/backbone/backbone.js',
-            'lib/backbone-business.js'
+            'lib/backbone/backbone.js'
           ]
         }
       }
