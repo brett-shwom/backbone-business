@@ -1,5 +1,7 @@
 (function (Backbone) {
+  "use strict";
 
+  var _businessRules;
 
   var evaluateViewVisibility = function(view) {
 

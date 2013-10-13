@@ -1,4 +1,5 @@
 (function(Backbone) {
+  "use strict";
 
   Backbone.BusinessRuleProcessor = {};
 
@@ -6,7 +7,7 @@
 
     var facts = options.facts;
     var ruleString = options.ruleString;
-    console.warn(ruleString, facts, eval(ruleString))
+
     //TODO: could be made more robust
     return eval(ruleString);
   };
@@ -36,11 +37,17 @@
         //TODO: add more flexibility to this (ex: other boolean logic (OR, NOT))
         var i,rulePartial,partialResult,result;
 
+        for (i=0;i<rule.length;i++) {
+          if (typeof rule[i] !== 'string') {
+            throw 'all rule elements must be strings';
+          }
+        }
+
         rulePartial = rule[0];
         partialResult = Backbone.BusinessRuleProcessor._evaluateRuleString({ruleString : rule[0], facts : facts});
         result = partialResult;
 
-        for(i=1; i<rule;i++) {
+        for(i=1; i<rule.length;i++) {
           rulePartial=rule[i];
           partialResult = Backbone.BusinessRuleProcessor._evaluateRuleString({ruleString : rulePartial, facts : facts});
           result = result && partialResult; //TODO: AND is currently the only way rule partials are combined

@@ -1,4 +1,5 @@
 describe('A View class', function () {
+  "use strict";
 
   var   View
       , ViewWithBusiness

@@ -1,4 +1,5 @@
 describe('a rule', function () {
+  "use strict";
 
   var   rule
       , facts
@@ -77,7 +78,20 @@ describe('a rule', function () {
 
     });
 
+    describe('and which evalues a false fact', function () {
 
+      beforeEach(function () {
+        rule = "facts.fact1";
+        facts = {fact1:false};
+      });
+
+      it('will return false', function() {
+
+        expect(Backbone.BusinessRuleProcessor.processRule({rule:rule, facts : facts})).toBe(false);
+        
+      });
+
+    });
 
   });
 
@@ -87,6 +101,22 @@ describe('a rule', function () {
 
       beforeEach(function () {
         rule = [];
+      });
+
+      it('will cause an exception to be thrown', function() {
+
+        spyOn(Backbone.BusinessRuleProcessor, 'processRule').andCallThrough();
+
+        expect(function () {Backbone.BusinessRuleProcessor.processRule({rule:rule});}).toThrow();
+  
+      });
+
+    });
+
+    describe('that contains a non-string element', function () {
+
+      beforeEach(function () {
+        rule = [1];
       });
 
       it('will cause an exception to be thrown', function() {
