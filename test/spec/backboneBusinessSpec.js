@@ -2,7 +2,7 @@ describe('A View class', function () {
 
   var   View
       , ViewWithBusiness
-      , view
+      , viewWithBusiness
   ;
 
   describe('which extends Backbone.View', function () {
@@ -20,14 +20,16 @@ describe('A View class', function () {
       describe('an instance created from that View class', function () {
 
         beforeEach(function () {
-          view = new ViewWithBusiness();
+          viewWithBusiness = new ViewWithBusiness();
         });
 
-        describe('and whose underlying buisness rules contain a single {_default: false} rule', function () {
+        describe('and whose underlying buisness rules contain a single {viewVisibility:{_default: false}} rule', function () {
 
           beforeEach(function () {
-            view.injectBuisnessRules({
-              _default : false
+            viewWithBusiness.injectBuisnessRules({
+              viewVisibility : {
+                _default : false    
+              }
             });
           });
 
@@ -35,7 +37,7 @@ describe('A View class', function () {
 
             spyOn(View.prototype, 'render');
 
-            view.render();
+            viewWithBusiness.render();
 
             expect(View.prototype.render).not.toHaveBeenCalled();
 
@@ -43,11 +45,13 @@ describe('A View class', function () {
           });
         });
 
-        describe('and whose underlying buisness rules contain a single {_default: true} rule', function () {
+        describe('and whose underlying buisness rules contain a single {viewVisibility:{_default: true}} rule', function () {
           
           beforeEach(function () {
-            view.injectBuisnessRules({
-              _default : true
+            viewWithBusiness.injectBuisnessRules({
+              viewVisibility : {
+                _default : true
+              }
             });
           });
 
@@ -56,7 +60,31 @@ describe('A View class', function () {
 
             spyOn(View.prototype, 'render');
 
-            view.render();
+            viewWithBusiness.render();
+
+            expect(View.prototype.render).toHaveBeenCalled();
+
+
+          });
+        });
+
+        describe('and whose underlying buisness rules contain a viewVisiblity:{_default:false} and a view class name {viewVisibility:{_default: true}} rule', function () {
+          
+          beforeEach(function () {
+            viewWithBusiness.injectBuisnessRules({
+              viewVisibility : {
+                View : ['facts.fact1']
+                _default : false
+              }
+            });
+          });
+
+
+          it("should have a render() that calls the View class' prototype.render()", function () {
+
+            spyOn(View.prototype, 'render');
+
+            viewWithBusiness.render();
 
             expect(View.prototype.render).toHaveBeenCalled();
 
