@@ -34,7 +34,7 @@
       return _businessRules.viewVisibility._default;
     }
     else {
-      return Backbone.BusinessRuleProcessor.processRule(rule);
+      return Backbone.BusinessRuleProcessor.processRule({rule:rule});
     }
 
     

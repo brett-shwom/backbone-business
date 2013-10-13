@@ -28,7 +28,7 @@ describe('A View class', function () {
           beforeEach(function () {
             viewWithBusiness.injectBuisnessRules({
               viewVisibility : {
-                _default : false    
+                _default : false
               }
             });
           });
@@ -68,29 +68,29 @@ describe('A View class', function () {
           });
         });
 
-        describe('and whose underlying buisness rules contain a viewVisiblity:{_default:false} and a view class name {viewVisibility:{_default: true}} rule', function () {
+        // describe('and whose underlying buisness rules contain a viewVisiblity:{_default:false} and a view class name {viewVisibility:{_default: true}} rule', function () {
           
-          beforeEach(function () {
-            viewWithBusiness.injectBuisnessRules({
-              viewVisibility : {
-                View : ['facts.fact1'],
-                _default : false
-              }
-            });
-          });
+        //   beforeEach(function () {
+        //     viewWithBusiness.injectBuisnessRules({
+        //       viewVisibility : {
+        //         View : ['facts.fact1'],
+        //         _default : false
+        //       }
+        //     });
+        //   });
 
 
-          it("should have a render() that calls the View class' prototype.render()", function () {
+        //   it("should have a render() that calls the View class' prototype.render()", function () {
 
-            spyOn(View.prototype, 'render');
+        //     spyOn(View.prototype, 'render');
 
-            viewWithBusiness.render();
+        //     viewWithBusiness.render();
 
-            expect(View.prototype.render).toHaveBeenCalled();
+        //     expect(View.prototype.render).toHaveBeenCalled();
 
 
-          });
-        });
+        //   });
+        // });
 
       });
 
