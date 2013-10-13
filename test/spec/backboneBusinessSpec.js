@@ -73,7 +73,7 @@ describe('A View class', function () {
           beforeEach(function () {
             viewWithBusiness.injectBuisnessRules({
               viewVisibility : {
-                View : ['facts.fact1']
+                View : ['facts.fact1'],
                 _default : false
               }
             });
