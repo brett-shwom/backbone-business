@@ -73,16 +73,31 @@ describe('A View class', function () {
 
             });
 
-            it("should have a render() that does not call the View class' prototype.render()", function () {
+            describe('should have a render()', function () {
+              it("that does not call the View class' prototype.render()", function () {
 
-              spyOn(View.prototype, 'render');
+                spyOn(View.prototype, 'render');
 
-              viewWithBusiness.render();
+                viewWithBusiness.render();
 
-              expect(View.prototype.render).not.toHaveBeenCalled();
+                expect(View.prototype.render).not.toHaveBeenCalled();
 
+
+              });
+
+              it("that empties the view's $el", function () {
+                spyOn(viewWithBusiness.$el, 'empty');
+
+                viewWithBusiness.render();
+
+                expect(viewWithBusiness.$el.empty).toHaveBeenCalled();
+              });
 
             });
+
+
+
+
           });
 
           describe('and whose underlying buisness rules contain a single {viewVisibility:{_default: true}} rule', function () {
@@ -94,7 +109,7 @@ describe('A View class', function () {
                 }
               });
             });
-            
+
             it('should re-render when the facts model changes', function () {
               runs(function () {
                 spyOn(viewWithBusiness,'render');

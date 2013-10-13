@@ -74,6 +74,9 @@
         if (evaluateViewVisibility({view : this,facts : facts})) {
           return ViewClass.prototype.render.apply(this, arguments);
         }
+        else {
+          this.$el.empty(); //TODO: pretty crude, but gets the job done for now
+        }
       },
       injectBuisnessRules : function(businessRules) {
         _businessRules = businessRules;
