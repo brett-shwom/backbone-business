@@ -12,6 +12,7 @@
         , ViewClass
         , _default
         , rule
+        , found = false
     ;
 
     //TODO: do I even need the ViewClass? What am I doing with it?
@@ -29,13 +30,14 @@
         ViewClass = eval(ViewClassName);
         if (view.constructor === ViewClass) {
           rule = _businessRules.viewVisibility[ViewClassName];
+          found = true;
           break;
         }
 
       }
     }
 
-    if (ViewClass === undefined) {
+    if (!found) {
       return _businessRules.viewVisibility._default;
     }
     else {
