@@ -11,8 +11,8 @@ To reduce to configuration rules governing the visibility of views in a single-p
 
 use cases
 -----------
--managing the rules affecting the viewability of form elements in a report builder
--your application has a lot of complex business rules and you'd like to manage them all in one place
+-  managing the rules affecting the viewability of form elements in a report builder
+-  your application has a lot of complex business rules and you'd like to manage them all in one place
 
 usage
 -----------
