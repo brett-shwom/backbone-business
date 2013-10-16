@@ -19,10 +19,10 @@ usage
 
 There are 4 main concepts:
 
--facts
--rules
--rules.viewVisibility
--the backbone-business mixin
+-  facts
+-  rules
+-  rules.viewVisibility
+-  the backbone-business mixin
 
 ###facts
 
@@ -45,8 +45,8 @@ There are 4 main concepts:
 ###rules.viewVisibility
 
 `rules.viewVisibility` is an object whose keys are Backbone.View class names and whose values are strings which represent the rules governing the visibility of instances of that particular view class. The strings contain valid javscript which 
--references the facts object
--can be eval()'ed to a truthy or falsy value
+-  references the facts object
+-  can be eval()'ed to a truthy or falsy value
 
 ```
 rules.viewVisibility = {
