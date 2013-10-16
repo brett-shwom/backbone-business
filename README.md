@@ -7,17 +7,22 @@ When the facts change, then your views get re-rendered.
 
 purpose
 -----------
-To reduce to configuration all rules governing the visibility of views in a single-page-app.
+To reduce to configuration rules governing the visibility of views in a single-page-app.
+
+use cases
+-----------
+-managing the rules affecting the viewability of form elements in a report builder
+-your application has a lot of complex business rules and you'd like to manage them all in one place
 
 usage
 -----------
 
 There are 4 main concepts:
 
-facts
-rules
-rules.viewVisibility
-the backbone-business mixin
+-facts
+-rules
+-rules.viewVisibility
+-the backbone-business mixin
 
 ###facts
 
@@ -25,7 +30,7 @@ the backbone-business mixin
 
 ```
 {
-  url_hash : '#/checkout',
+  url_hash : '#checkout',
   username : 'brett',
   isSuperUser : true,
   status : 'active',
@@ -45,13 +50,23 @@ the backbone-business mixin
 
 ```
 rules.viewVisibility = {
-  LoginView
-
+  LoginView : "facts.username",
+  CheckoutView : "facts.url_hash == '#checkout'"
 }
 
 ```
 
-rules is an object
+###the backbone-business mixin
+
+Backbone.Business gets mixed into your views as follows:
+
+```
+LoginView = Backbone.Marionette.ItemView.extend({
+  template : '#login-view-template'
+});
+
+LoginView = LoginView.extend(Backbone.Business({viewClass : LoginView, businessRules : rules, facts : facts}));
+```
 
 
 developing backbone-business
