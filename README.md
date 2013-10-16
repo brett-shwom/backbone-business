@@ -3,7 +3,7 @@ backbone-business
 
 Take the logic out of your views with business rules!
 
-When the facts change, then your views get re-rendered.
+When the facts change, then your views are appropriately hidden/shown.
 
 purpose
 -----------
